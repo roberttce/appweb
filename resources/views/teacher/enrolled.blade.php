@@ -5,7 +5,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 @endsection
 @section('userName')
-{{ session('firstName') }}{{ session('surName') }}
+{{ session('firstName') }} {{ session('surName') }}
 @endsection
 @section("dashboard")
 <li class="nav-item">
@@ -22,9 +22,9 @@
 </li>
 @endsection
 @section("content")
-<ul class="nav nav-tabs">
+  <ul class="nav nav-tabs">
     <li class="nav-item">
-      <a class="nav-link active" data-toggle="tab" href="#students">Estudiantes</a>
+      <a class="nav-link active" data-toggle="tab" href="#student">Estudiantes</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" data-toggle="tab" href="#attendance">Asistencia</a>

@@ -1,15 +1,21 @@
 @extends("template.layaut")
 @section("sectionGeneral","Ver personas")
+@section('userName')
+{{ session('firstName') }} {{ session('surName') }}
+@endsection
+@section("dashboard")
+<li class="nav-item">
+  <a href="{{url('admin/getall')}}" class="nav-link active">
+    <i class="far fa-circle nav-icon"></i>
+    <p>ver Usuarios</p>
+  </a>		
+</li>
+@endsection
 @section('css')
   <link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.bootstrap5.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
-@endsection
-@section("dashboard_1")
-    <a href="{{url('admin/getall')}}" class="nav-link active">
-        <i class="far fa-circle nav-icon"></i>
-        <p>Ver Usuarios</p>
-    </a>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 @endsection
 @section("content")
     <div class="row mb-3">
@@ -38,34 +44,37 @@
             <tr>
                 <th>Nombre y Apellido</th>
                 <th>DNI</th>
+                <th>Edad</th>
                 <th>Telefono</th>
                 <th>Correo</th>
                 <th>Rol</th>
+
                 <th>Fecha de Registro</th>
                 <th>Acciones</th>
             </tr>
         </thead>
         <tbody>
-            @foreach($listTPerson as $value)
+            @foreach($listTPerson as $index => $value)
                 <tr>
                     <td>{{$value->firstName}} {{$value->surName}}</td>
                     <td>{{$value->dni}}</td>
+                    <td>{{$value->age}}</td>
                     <td>{{$value->phone}}</td>  
                     <td>{{$value->email}}</td>
                     <td>{{$value->role}}</td>
                     <td>{{$value->created_at->format('d/m/Y')}}</td>
                     <td class="text-right" >
                         <div class="btn-group" role="group">
-                            <button type="button" onclick="verUsuario()" class="btn btn-sm btn-primary mr-1" data-toggle="tooltip" title="ver Usruario">
+                            <button type="button" data-toggle="modal" data-target="#personModal" class="btn btn-sm btn-primary mr-1" data-toggle="tooltip" title="Ver Usuario" data-index="{{ $index }}">
                                 <i class="fas fa-eye"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger mr-1" data-toggle="tooltip" title="Suspender">
+                            <button type="button" data-target="" class="btn btn-sm btn-primary mr-1" data-toggle="tooltip" title="Ver Usuario">
                                 <i class="fas fa-ban"></i>
                             </button>
                             <button class="btn btn-sm btn-warning mr-1" data-toggle="tooltip" title="Actualizar">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
-                            <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Eliminar">
+                            <button type="button" onclick="deletePerson('{{ $value->idPerson }}');" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Eliminar">
                                 <i class="fas fa-trash-alt"></i>
                             </button>
                         </div>
@@ -74,11 +83,40 @@
             @endforeach
         </tbody>
     </table>
+    @include('admin.modal')
 @endsection
 @section('js') 
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="{{asset('viewsresources/admin/getall.js')}}"></script>
+<script>
+    var listTPerson = @json($listTPerson);
+
+    $('#personModal').on('show.bs.modal', function(event) {
+        var button = $(event.relatedTarget);  
+        var index = button.data('index'); 
+        var person = listTPerson[index];
+
+        // Actualizar el contenido del modal con los datos de la persona seleccionada
+        var modalBody = $(this).find('.modal-body');
+        modalBody.html(`
+            <div class="text-center mb-3">
+                <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="img-fluid rounded-circle">
+            </div>
+            <h5 class="card-title">Nombre: ${person.firstName} ${person.surName}</h5>
+            <p class="card-text">DNI: ${person.dni}</p>
+            <p class="card-text">Edad: ${person.age}</p>
+            <p class="card-text">Telefono: ${person.phone}</p>
+            <p class="card-text">Coreo: ${person.email}</p>
+            <p class="card-text">Rol: ${person.role}</p>
+            <p class="card-text">Fecha de registro: ${person.created_at}</p>
+            <p class="card-text">Historial Académico:</p>
+            <button class="btn btn-sm btn-primary">Ver Historial Completo</button>
+        `);
+    });
+</script>
 @endsection

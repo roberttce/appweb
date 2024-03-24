@@ -73,7 +73,7 @@
 				</a>
 				<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
 					<div class="dropdown-divider"></div>
-					<a href="{{route('login')}}" class="dropdown-item">
+					<a href="{{route('logout')}}" class="dropdown-item">
 						<!-- Message Start -->
 						<div class="media">
 							<div class="media-body">
@@ -85,7 +85,7 @@
 						<!-- Message End -->
 					</a>
 					<div class="dropdown-divider"></div>
-					<a href="{{route('login')}}" class="dropdown-item">
+					<a href="{{route('logout')}}" class="dropdown-item">
 						<!-- Message Start -->
 						<div class="media">
 							<div class="media-body">

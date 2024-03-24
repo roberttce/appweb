@@ -1,3 +1,4 @@
+'use strict';
  $(document).ready(function() {
     var table = $('#person').DataTable({
         "language": {
@@ -7,7 +8,7 @@
 
     $('#role-filter').on('change', function() {
         var selectedRole = $(this).val();
-        table.column(4) // Columna del rol
+        table.column(5) // Columna del rol
              .search(selectedRole)
              .draw();
     });
@@ -22,6 +23,26 @@
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
 });
+
 function verUsuario() {
     window.location.href = "viewperson";
+}
+
+function deletePerson(idPeron) {
+	swal(
+	{
+		title : 'Confirmar operación',
+		text : '¿Realmente desea proceder?',
+		icon : 'warning',
+		buttons : ['No, cancelar.', 'Si, proceder.']
+	})
+	.then((proceed) =>
+	{
+		if(proceed)
+		{
+			//Llamar aquí a la función para mostrar el loader.
+
+			window.location.href ='person/delete/'+idPeron;
+		}
+	});
 }

@@ -20,10 +20,15 @@ Route::prefix('teacher')->middleware(['web','check.session'])->group(function ()
     Route::get('/course', [TeacherController::class, 'viewCouse'])->name('teacher.course');
     Route::get('/course/enrolled/{idCourse}', [TeacherController::class, 'viewEnrolled'])->name('teacher.course.enrolled');
 });*/
-Route::get('admin', [AdminController::class, 'index'])->name('admin')->middleware(['web', 'check.session']);
-Route::get('admin/getall', [AdminController::class, 'actionGetAll'])->middleware(['web', 'check.session']);
-route::get('admin/viewperson', [AdminController::class,'viewPerson']);
+Route::prefix('admin')->middleware(['web', 'check.session'])->group(function () {
+    Route::get('/', [AdminController::class, 'index'])->name('admin');
+    Route::get('/getall', [AdminController::class, 'actionGetAll']);
+    Route::get('/person/delete/{idPerson}', [AdminController::class,'actionDelete']);
+});
+
+
 Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::get('logout', [LoginController::class,'logout'])->name('logout');
 Route::match(['get', 'post'], 'login/login', [LoginController::class, 'actionLogin']);
 
 Route::prefix('teacher')->middleware(['web', 'check.session'])->group(function () {

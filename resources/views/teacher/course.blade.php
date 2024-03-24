@@ -1,6 +1,6 @@
 @extends("template.layaut")
 @section('userName')
-{{ session('firstName') }}{{ session('surName') }}
+{{ session('firstName') }} {{ session('surName') }}
 @endsection
 @section("dashboard")
     <li class="nav-item">

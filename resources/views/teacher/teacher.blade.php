@@ -1,5 +1,8 @@
 @extends("template.layaut")
 @section("sectionGeneral","Pofesor")
+@section('userName')
+{{ session('firstName') }} {{ session('surName') }}
+@endsection
 @section("dashboard")
 <li class="nav-item">
   <a href="{{url('teacher/course')}}" class="nav-link active">

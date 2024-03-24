@@ -23,15 +23,11 @@ class LoginController  extends Controller{
         $user = TUser::where('email', $email)->first();
     
         if (!$user) {
-            // Si no se encuentra el usuario, mostrar un mensaje de error
             $error = "No se encontró ninguna cuenta asociada a este correo electrónico. Por favor, verifique sus credenciales.";
             Session::flash('error', $error);
             return redirect('login');
         }
-    
-        // Verificar si la contraseña es correcta
         if ($user->password !== $password) {
-            // Si la contraseña es incorrecta, mostrar un mensaje de error
             $error = "La contraseña proporcionada es incorrecta";
             Session::flash('error', $error);
             return redirect('login');
@@ -57,9 +53,12 @@ class LoginController  extends Controller{
                 return redirect('login');
         }
     }
-    public function clasedLogin(){
-        redirect('login');
+    public function logout() {
+        Session::flush(); // Eliminar todas las variables de sesión
+        Auth::logout(); // Cerrar sesión del usuario
+        return redirect('login');    
     }
+    
     /*public function actionLogin000(Request $request){
         $request -> validate(
             [

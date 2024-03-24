@@ -1,4 +1,8 @@
-@extends('template.layaut')
+@extends("template.layaut")
+@section('sectionGeneral','ver Personas')
+@section('userName')
+{{ session('firstName') }} {{ session('surName') }}
+@endsection
 @section('sectionGeneral','ver usuario')
 @section('content')
     <div class="container mt-5">
