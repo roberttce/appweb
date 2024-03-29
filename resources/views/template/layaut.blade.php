@@ -386,8 +386,7 @@
 	  </div>
 	  <!-- /.content-wrapper -->
 	  <footer class="main-footer">
-		<strong>Copyright &copy; 2024- <a href="http://adminlte.io">Colegio San Gabriel</a>.</strong>
-		All rights reserved.
+		<strong>Copyright &copy; 2024- <a href="#">Colegio San Gabriel</a>.</strong>
 		<div class="float-right d-none d-sm-inline-block">
 		  <b>Version</b> 1.0.1-pre
 		</div>

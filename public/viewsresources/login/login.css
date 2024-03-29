@@ -1,42 +1,61 @@
- 
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #112c64;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
+.login-container {
+    /* Contenedor transparente */
+    background-color: transparent;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 10px;
+    min-height: calc(100vh - 60px);
+}
 
-        form {
-            background-color: #1e2128;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-        }
+.form-container {
+    background-color: #001f3f;
+    padding: 40px;
+    border-radius: 8px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    max-width: 400px;
+    width: 100%;
+    text-align: center;
+}
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #61dafb; /* Color Bootstrap para resaltar */
-        }
+.login-label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #fff; /* Texto blanco */
+}
 
-        button {
-            background-color: #61dafb;
-            color: #fff;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #fff; /* Borde blanco */
+    border-radius: 4px;
+    box-sizing: border-box;
+    color: #001f3f; /* Texto azul marino */
+    background-color: #fff; /* Fondo blanco */
+}
 
-        button:hover {
-            background-color: #4fa3d1;
-        }
+.login-button {
+    background-color: #ffbf00; /* Dorado */
+    color: #001f3f; /* Azul marino */
+    padding: 14px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    width: 100%;
+}
+
+.login-button:hover {
+    background-color: #ffd700; /* Azul marino más oscuro */
+}
+
+.login-error {
+    color: #ff0000; /* Rojo */
+    margin-top: 5px;
+    text-align: left;
+    font-size: 12px;
+}

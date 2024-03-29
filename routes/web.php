@@ -9,17 +9,8 @@ use App\Http\Controllers\TeacherController;
 //use App\Http\Middleware\CheckSessionMiddleware;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('template.home');
 });
-/*Route:: get('admin', [AdminController::class, 'index'])->middleware(['web','check.session']);//->middleware(CheckRole::class . ':admin');
-Route:: get('admin/getall', [AdminController::class, 'actionGetAll']);
-Route:: get('login', [LoginController::class, 'index']);
-
-Route::prefix('teacher')->middleware(['web','check.session'])->group(function () {
-    Route::get('/', [TeacherController::class, 'index']);
-    Route::get('/course', [TeacherController::class, 'viewCouse'])->name('teacher.course');
-    Route::get('/course/enrolled/{idCourse}', [TeacherController::class, 'viewEnrolled'])->name('teacher.course.enrolled');
-});*/
 Route::prefix('admin')->middleware(['web', 'check.session'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::get('/getall', [AdminController::class, 'actionGetAll']);
@@ -39,8 +30,7 @@ Route::prefix('teacher')->middleware(['web', 'check.session'])->group(function (
     Route::get('/course/enrolled/{idCourse}', [TeacherController::class, 'viewEnrolled'])->name('teacher.course.enrolled');
 });
 
-route :: get('student');
-
+route :: get('student',function(){return view("student.student");});
 Route:: get('user/getall', [UserController::class, 'actionGetAll']);
 Route::match(['get', 'post'],'login/login',  [LoginController::class, 'actionLogin']);
 
