@@ -16,8 +16,37 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{{ asset('viewsresources/admin/getall.css') }}">
 @endsection
 @section("content")
+<div id="page-content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="widget">
+                <div class="widget-extra themed-background-dark">
+                    <div>
+                        <h3 class="widget-content-light">
+                            Relacion de Usuarios
+                        </h3>
+                    </div>
+                    <div class="widget-options">
+                        <div class="btn-group">
+                            <a class="btn btn-default" data-toggle="modal" data-target="#personInsert">
+                                <i class="fa fa-plus"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="widget-extra">
+                    <div id="loader" class="text-center">
+                        <img src="{{asset('viewsresources/img/loader.gif') }}" width="50px">
+                    </div>
+                    <div class="div_table_user"></div>
+                </div>
+            </div>
+        </div>							
+    </div>
+</div>
     <div class="row mb-3">
              
             <div class="col-md-3 offset-md-6">
@@ -58,20 +87,20 @@
                 <tr>
                     <td>{{$value->firstName}} {{$value->surName}}</td>
                     <td>{{$value->dni}}</td>
-                    <td>{{$value->age}}</td>
+                    <td>{{$value->birthDate}}</td>
                     <td>{{$value->phone}}</td>  
                     <td>{{$value->email}}</td>
                     <td>{{$value->role}}</td>
                     <td>{{$value->created_at->format('d/m/Y')}}</td>
                     <td class="text-right" >
                         <div class="btn-group" role="group">
-                            <button type="button" data-toggle="modal" data-target="#personModal" class="btn btn-sm btn-primary mr-1" data-toggle="tooltip" title="Ver Usuario" data-index="{{ $index }}">
+                            <button type="button" data-toggle="modal" data-target="#personModal" class="btn btn-sm btn-primary mr-1" data-toggle="tooltip" title="Ver Usuario">
                                 <i class="fas fa-eye"></i>
-                            </button>
-                            <button type="button" data-target="" class="btn btn-sm btn-primary mr-1" data-toggle="tooltip" title="Ver Usuario">
+                            </button> 
+                            <button type="button" class="btn btn-sm btn-warning mr-1" data-toggle="tooltip" title="Desactivar Usuario">
                                 <i class="fas fa-ban"></i>
                             </button>
-                            <button class="btn btn-sm btn-warning mr-1" data-toggle="tooltip" title="Actualizar">
+                            <button type="button" data-toggle="modal" data-target="#modal-personUpdate" class="btn btn-sm btn-success mr-1" data-toggle="tooltip" title="Actualizar Usuario">
                                 <i class="fas fa-sync-alt"></i>
                             </button>
                             <button type="button" onclick="deletePerson('{{ $value->idPerson }}');" class="btn btn-sm btn-danger" data-toggle="tooltip" title="Eliminar">
@@ -93,30 +122,5 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script src="{{asset('viewsresources/admin/getall.js')}}"></script>
-<script>
-    var listTPerson = @json($listTPerson);
-
-    $('#personModal').on('show.bs.modal', function(event) {
-        var button = $(event.relatedTarget);  
-        var index = button.data('index'); 
-        var person = listTPerson[index];
-
-        // Actualizar el contenido del modal con los datos de la persona seleccionada
-        var modalBody = $(this).find('.modal-body');
-        modalBody.html(`
-            <div class="text-center mb-3">
-                <img src="https://via.placeholder.com/150" alt="Foto de Perfil" class="img-fluid rounded-circle">
-            </div>
-            <h5 class="card-title">Nombre: ${person.firstName} ${person.surName}</h5>
-            <p class="card-text">DNI: ${person.dni}</p>
-            <p class="card-text">Edad: ${person.age}</p>
-            <p class="card-text">Telefono: ${person.phone}</p>
-            <p class="card-text">Coreo: ${person.email}</p>
-            <p class="card-text">Rol: ${person.role}</p>
-            <p class="card-text">Fecha de registro: ${person.created_at}</p>
-            <p class="card-text">Historial Académico:</p>
-            <button class="btn btn-sm btn-primary">Ver Historial Completo</button>
-        `);
-    });
-</script>
+<script src="{{asset('viewsresources/admin/person.js')}}"></script>
 @endsection

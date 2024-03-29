@@ -23,7 +23,9 @@ Route::prefix('teacher')->middleware(['web','check.session'])->group(function ()
 Route::prefix('admin')->middleware(['web', 'check.session'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::get('/getall', [AdminController::class, 'actionGetAll']);
+    Route::match(['get','post'],'/getall/insert', [AdminController::class, 'actionInsert']);
     Route::get('/person/delete/{idPerson}', [AdminController::class,'actionDelete']);
+    Route::get('/insert', [AdminController::class,'actionInsert']);
 });
 
 

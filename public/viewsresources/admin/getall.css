@@ -1,0 +1,20 @@
+
+.widget-extra.themed-background-dark {
+    display: flex;
+    justify-content: space-between;  
+    align-items: center;  
+    font-size: 24px;  
+    font-weight: bold;  
+    color: white; 
+    background-color: #333;  
+    padding: 10px;  
+    border-radius: 5px;  
+    text-align: center; 
+}
+.widget-options {
+    display: flex;
+    align-items: center;
+}
+.widget-options .btn-group {
+    order: -1;
+}

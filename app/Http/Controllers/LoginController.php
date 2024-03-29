@@ -5,6 +5,7 @@ use App\Models\TPerson;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Hash;
 class LoginController  extends Controller{
     public function index(){
         return view("login/login");
@@ -19,7 +20,6 @@ class LoginController  extends Controller{
         $email = $request->input('txtUser');
         $password = $request->input('txtPassword');
     
-        // Buscar al usuario por su email
         $user = TUser::where('email', $email)->first();
     
         if (!$user) {
@@ -27,12 +27,11 @@ class LoginController  extends Controller{
             Session::flash('error', $error);
             return redirect('login');
         }
-        if ($user->password !== $password) {
+        if (!Hash::check($password, $user->password)) {
             $error = "La contraseña proporcionada es incorrecta";
             Session::flash('error', $error);
             return redirect('login');
         }
-    
         
         $role = $user->person->role;
     
