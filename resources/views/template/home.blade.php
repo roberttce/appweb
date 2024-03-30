@@ -25,7 +25,7 @@
                 <ul class="nav-links">
                     <li><a href="{{ url('/') }}" class="nav-link">Home</a></li>
                     <li><a href="#" class="nav-link">Noticias</a></li>
-                    <li><a href="{{ url('student')}}" class="nav-link">Portal del Estudiante</a></li>
+                    <li><a href="{{ url('home/student')}}" class="nav-link">Portal del Estudiante</a></li>
                 </ul>
                 <a href="{{ url('login') }}" class="log-btn" style="text-decoration:none;">Iniciar Sesión</a>
             </div>
@@ -34,12 +34,16 @@
     <div>
         @yield('content')
     </div>
+    <div style="height: 500px;"></div>
     @yield('jss')
     <footer class="main-footer">
-        <strong>Copyright &copy; 2024- <a href="#">Colegio San Gabriel</a>.</strong>
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version:</b> 1.0.1.-pre
+        <div class="footer-content">
+            <strong>Copyright &copy; 2024- <a href="#">Colegio San Gabriel</a>.</strong>
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version:</b> 1.0.1.-pre
+            </div>
         </div>
     </footer>
+      
 </body>
 </html>

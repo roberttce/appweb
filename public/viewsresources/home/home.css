@@ -101,6 +101,40 @@ nav {
     transform: scale(1.05);
 }
 
+.main-footer {
+    padding-top: 15px; /* Padding de 15px hacia arriba */
+    position: relative; /* Asegura que la posición sea relativa */
+    margin-top: 15px; /* Espacio superior */
+}
+
+.footer-content {
+    background-color: #001f3f; /* Azul marino */
+    color: #fff; /* Texto blanco */
+    padding: 10px 20px; /* Espaciado interno */
+    font-size: 14px; /* Tamaño de fuente */
+    min-height: 15px; /* Altura mínima del pie de página */
+}
+
+.main-footer a {
+    color: #fff; /* Color de los enlaces */
+}
+.main-footer a:hover {
+    color: #ffd700; /* Dorado */
+}
+
+
+.float-right {
+    float: right; /* Alineación a la derecha */
+}
+
+.d-none {
+    display: none; /* Ocultar en dispositivos pequeños */
+}
+
+.d-sm-inline-block {
+    display: inline-block; /* Mostrar en dispositivos pequeños */
+}
+
 @media (max-width: 768px) {
     .containers {
         flex-direction: column;

@@ -20,7 +20,7 @@
                 <div class="row align-items-center">
                     <div class="row">
                         <div class="col-3">
-                            <img src="{{ asset('plugins/adminlte/dist/img/sis/logo-01.png') }}" alt="Logo" style="width: 60px; height: auto;">
+                            <img src="{{ asset('viewsresources/img/logo.png') }}" alt="Logo" style="width: 60px; height: auto;">
                         </div>
                         <div class="col-9">
                             <h2 class="mb-4">Iniciar Sesión</h2>

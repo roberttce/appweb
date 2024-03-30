@@ -1,0 +1,53 @@
+.student-container {
+    display: flex;
+    flex-direction: row;
+    height: calc(100vh - 60px); /* Ajusta el valor según la altura de tu navbar */
+}
+
+.sidebar {
+    background-color: #003366; /* Color más suave */
+    color: #fff;
+    width: 200px;
+    padding: 20px;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar-item {
+    margin-bottom: 10px;
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+.sidebar-item a {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: block; /* Hacer todo el área del enlace clickeable */
+    padding: 10px; /* Espaciado interno para mejorar la accesibilidad */
+}
+
+.sidebar-item.active a,
+.sidebar-item a:hover {
+    color: #ffbf00;
+    background-color: #001f3f; /* Color de fondo más oscuro */
+    border-radius: 8px; /* Bordes redondeados */
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+}
+.content-head {
+    background-color: #003366; /* Azul marino */
+    color: #fff; /* Texto blanco */
+    padding: 12px;
+    text-align: center; /* Para centrar el texto */
+    border-radius:5px;
+}
+.content-header {
+    margin-bottom: 20px;
+}
