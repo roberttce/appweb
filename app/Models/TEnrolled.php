@@ -9,5 +9,13 @@ class TEnrolled extends Model {
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = true;
+    public function user()
+    {
+        return $this->belongsTo(TUser::class, 'idUser', 'idUser');
+    }
+    public function person()
+    {
+        return $this->belongsTo(TPerson::class, 'idPerson', 'idPerson');
+    }
 }
 ?>

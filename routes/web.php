@@ -7,6 +7,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\PersonController;
 //use App\Http\Middleware\CheckSessionMiddleware;
 
 Route::get('/', function () {
@@ -15,8 +16,11 @@ Route::get('/', function () {
 Route::prefix('admin')->middleware(['web', 'check.session'])->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin');
     Route::get('/getall', [AdminController::class, 'actionGetAll']);
+    Route::get('/course',[AdminController::class,'courseGetAll']);
+    Route::get('/enrolled',function(){return view('admin.enrolled');});
     Route::match(['get','post'],'/getall/insert', [AdminController::class, 'actionInsert']);
-    Route::get('/person/delete/{idPerson}', [AdminController::class,'actionDelete']);
+    Route::get('/person/delete/{idPerson}', [AdminController::class,'personDelete']);
+    Route::match(['get','post'],'/person/update/{idPerson}', [PersonController::class,'personUpdate']);
     Route::get('/insert', [AdminController::class,'actionInsert']);
 });
 

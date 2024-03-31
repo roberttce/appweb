@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\TEnrolled;
 use App\Models\TUser;
 use App\Models\TPerson;
+use App\Models\TCourse;
 use Illuminate\Http\Request;
 use Illuminate\Session\SessionManager;
 use Illuminate\Support\Facades\Validator;
@@ -21,7 +22,14 @@ class AdminController  extends Controller{
             'listTPerson' => $listTPerson
         ]);
     }
-    public function actionDelete($idPerson, SessionManager $sessionManager)
+    public function courseGetAll()
+    {
+        $listTCourse = TCourse::all();
+        return view('admin.course', [
+            'listTCourse' => $listTCourse
+        ]);
+    }
+    public function personDelete($idPerson, SessionManager $sessionManager)
 	{
 		$tPerson = TPerson::find($idPerson);
 		$idUser= TPerson::where('idPerson', $idPerson)->pluck('idUser')->first();
@@ -43,6 +51,10 @@ class AdminController  extends Controller{
 
 		return redirect('admin/getall');
 	}
+    public function courseDelete($idCourse){
+        $tCourse=TCourse::find($idCourse);
+        $tCourse->delete();
+    }
     public function viewPerson(Request $request){
         return view('admin.viewPerson');
     }

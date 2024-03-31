@@ -1,89 +1,163 @@
-'use strict';
-$(() => {
-    $('#frmPersonInsert').formValidation({
-        framework: 'bootstrap',
-        excluded: [':disabled', ':hidden', ':not(:visible)', '[class*="notValidate"]'],
-        live: 'enabled',
-        message: '<b style="color: #9d9d9d;">Asegúrese que realmente no necesita este valor.</b>',
-        trigger: null,
-        fields: {
-            firstName: {
-                validators: {
-                    notEmpty: {
-                        message: '<b style="color: red;">El campo "Nombre" es requerido.</b>'
-                    }
-                }
-            },
-            surName: {
-                validators: {
-                    notEmpty: {
-                        message: '<b style="color: red;">El campo "Apellido" es requerido.</b>'
-                    }
-                }
-            },
-            dni: {
-                validators: {
-                    notEmpty: {
-                        message: '<b style="color: red;">El campo "DNI" es requerido.</b>'
-                    }
-                }
-            },
-            edad: {
-                validators: {
-                    notEmpty: {
-                        message: '<b style="color: red;">El campo "Edad" es requerido.</b>'
-                    },
-                    numeric: {
-                        message: '<b style="color: red;">El campo "Edad" debe ser numérico.</b>'
-                    },
-                    greaterThan: {
-                        value: 5,
-                        inclusive: true,
-                        message: '<b style="color: red;">El valor mínimo para el campo "Edad" es 6.</b>'
-                    }
-                }
-            },
-            phone: {
-                validators: {
-                    notEmpty: {
-                        message: '<b style="color: red;">El campo "Teléfono" es requerido.</b>'
-                    }
-                }
-            },
-            email: {
-                validators: {
-                    notEmpty: {
-                        message: '<b style="color: red;">El campo "Correo electrónico" es requerido.</b>'
-                    },
-                    emailAddress: {
-                        message: '<b style="color: red;">Por favor, ingrese un correo electrónico válido.</b>'
-                    }
-                }
-            },
-            role: {
-                validators: {
-                    notEmpty: {
-                        message: '<b style="color: red;">El campo "Rol" es requerido.</b>'
-                    }
-                }
-            }
-        }
+var modal = document.getElementById('personInsert');
+
+modal.addEventListener('hidden.bs.modal', function () {
+    var errorMessages = document.querySelectorAll('.error-message');
+    errorMessages.forEach(function (errorMessage) {
+        errorMessage.textContent = '';  
+    });
+
+    var inputFields = document.querySelectorAll('.form-control');
+    inputFields.forEach(function (inputField) {
+        inputField.classList.remove('error-input');  
     });
 });
-function personInsert() {
-	
-	swal(
-	{
-		title : 'Confirmar operación',
-		text : '¿Realmente desea proceder?',
-		icon : 'warning',
-		buttons : ['No, cancelar.', 'Si, proceder.']
-	})
-	.then((proceed) =>
-	{
-		if(proceed)
-		{
-			$('#frmPersonInsert')[0].submit();
-		}
-	});
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.getElementById('frmPersonInsert');
+    const inputs = form.querySelectorAll('.form-control');
+
+    inputs.forEach(input => {
+        input.addEventListener('input', function () {
+            validateInput(input);
+        });
+    });
+});
+document.addEventListener('DOMContentLoaded', function () {
+    const forms = document.querySelectorAll('.form-personUpdate');
+
+    forms.forEach(form => {
+        const inputs = form.querySelectorAll('.form-control');
+
+        inputs.forEach(input => {
+            input.addEventListener('input', function () {
+                validateInput(input);
+            });
+        });
+    });
+});
+
+function personUpdate() {
+    const form = document.getElementById('form-personUpdate'); // Corregir el ID del formulario
+    const inputs = form.querySelectorAll('.form-control');
+
+    let formIsValid = true;
+
+    inputs.forEach(input => {
+        validateInput(input);
+        if (input.nextElementSibling.textContent !== '') {
+            formIsValid = false;
+        }
+    });
+
+    if (formIsValid) {
+        swal({
+            title: 'Confirmar operación',
+            text: '¿Realmente desea proceder?',
+            icon: 'warning',
+            buttons: ['No, cancelar.', 'Sí, proceder.']
+        }).then((proceed) => {
+            if (proceed) {
+                // Si el usuario confirma, enviar el formulario
+                form.submit();
+            }
+        });
+    }
 }
+function validateInput(input) {
+    const errorSpan = input.nextElementSibling;
+    const inputValue = input.value.trim();
+    const inputName = input.getAttribute('name');
+
+    // Validación específica según el nombre del campo
+    switch (inputName) {
+        case 'firstName':
+            if (inputValue === '') {
+                errorSpan.textContent = 'Este campo es obligatorio';
+            } else {
+                errorSpan.textContent = '';
+            }
+            break;
+        case 'surName':
+            if (inputValue === '') {
+                errorSpan.textContent = 'Este campo es obligatorio';
+            } else {
+                errorSpan.textContent = '';
+            }
+            break;
+        case 'dni':
+            if (inputValue === '') {
+                errorSpan.textContent = 'Este campo es obligatorio';
+            } else if (!/^\d{8}$/.test(inputValue)) {
+                errorSpan.textContent = 'El DNI debe tener exactamente 8 dígitos';
+            } else {
+                errorSpan.textContent = '';
+            }
+            break;
+        case 'phone':
+            if (inputValue === '') {
+                errorSpan.textContent = 'Este campo es obligatorio';
+            } else if (!/^\d{9}$/.test(inputValue)) {
+                errorSpan.textContent = 'El telefono debe tener exactamente 9 dígitos';
+            } else {
+                errorSpan.textContent = '';
+            }
+            break;
+        case 'birthDate':
+            if(inputValue===''){
+                errorSpan.textContent = 'Este campo es obligatorio';
+            }
+            else {
+                errorSpan.textContent = '';
+            }
+            break;
+        case 'email':
+            if(inputValue===''){
+                errorSpan.textContent = 'Este campo es obligatorio';
+            }
+            else if(!/^(([^<>()\[\]\\.,;:\s@”]+(\.[^<>()\[\]\\.,;:\s@”]+)*)|(“.+”))@((\[[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}\.[0–9]{1,3}])|(([a-zA-Z\-0–9]+\.)+[a-zA-Z]{2,}))$/.test(inputValue)){
+                errorSpan.textContent = 'Este campo deve tener el formato de correo electronico';
+            }
+            else {
+                errorSpan.textContent = '';
+            }
+            break;
+        case 'role':
+            if(inputValue===''){
+                errorSpan.textContent = 'Este campo es obligatorio';
+            }
+            else {
+                errorSpan.textContent = '';
+            }
+            break;
+    }
+}
+ 
+
+function validateForm() {
+    const form = document.getElementById('frmPersonInsert');
+    const inputs = form.querySelectorAll('.form-control');
+
+    let formIsValid = true;
+
+    inputs.forEach(input => {
+        validateInput(input);
+        if (input.nextElementSibling.textContent !== '') {
+            formIsValid = false;
+        }
+    });
+
+    if (formIsValid) {
+        swal({
+            title: 'Confirmar operación',
+            text: '¿Realmente desea proceder?',
+            icon: 'warning',
+            buttons: ['No, cancelar.', 'Sí, proceder.']
+        }).then((proceed) => {
+            if (proceed) {
+                // Si el usuario confirma, enviar el formulario
+                form.submit();
+            }
+        });
+    }
+}
+// Obtener el modal
+

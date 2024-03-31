@@ -431,9 +431,7 @@
 <!-- AdminLTE App -->
 <script src="{{asset('plugins/adminlte/dist/js/adminlte.js')}}"></script>
 
-<script src="{{asset('plugins/formvalidation/formValidation.min.js')}}"></script>
-<script src="{{asset('plugins/formvalidation/bootstrap.validation.min.js')}}"></script>
-
+<script src="{{asset('plugins/formvalidation/validate.min.js')}}"></script>
 <script src="{{asset('plugins/pnotify/pnotify.custom.min.js')}}"></script>
 <script src="{{asset('plugins/sweetalert/sweetalert.min.js')}}"></script>
 

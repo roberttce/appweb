@@ -8,7 +8,15 @@
   <a href="{{url('admin/getall')}}" class="nav-link active">
     <i class="far fa-circle nav-icon"></i>
     <p>ver Usuarios</p>
-  </a>		
+  </a>
+  <a href="{{url('admin/course')}}" class="nav-link active">
+    <i class="far fa-circle nav-icon"></i>
+    <p>ver Cursos</p>
+  </a>
+  <a href="{{url('admin/enrolled')}}" class="nav-link active">
+    <i class="far fa-circle nav-icon"></i>
+    <p>ver Matriculas</p>
+  </a>
 </li>
 @endsection
 @section("content")

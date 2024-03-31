@@ -9,5 +9,9 @@ class TCourse extends Model {
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = true;
+    public function enrolled()
+    {
+        return $this->hasOne(TEnrolled::class, 'idUser', 'idUser');
+    }
 }
 ?>
