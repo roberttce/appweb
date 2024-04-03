@@ -51,10 +51,6 @@ class AdminController  extends Controller{
 
 		return redirect('admin/getall');
 	}
-    public function courseDelete($idCourse){
-        $tCourse=TCourse::find($idCourse);
-        $tCourse->delete();
-    }
     public function viewPerson(Request $request){
         return view('admin.viewPerson');
     }
@@ -96,7 +92,6 @@ class AdminController  extends Controller{
             if($validator->fails())
             {
                 $errors = $validator->errors()->all();
-
                 foreach($errors as $value)
                 {
                     $listMessage[] = $value;
@@ -139,5 +134,63 @@ class AdminController  extends Controller{
         }
         return redirect('admin/getall');
     }
+    public function courseInsert(Request $request ,SessionManager $sessionManager){
+        // Validar los datos del formulario
+        $validatedData = $request->validate([
+            'code' => 'required',
+            'name' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'modality' => 'required',
+        ]);
+    
+         
+        $existingCourseByCode = TCourse::where('code', $request->code)->first();
+    
+        if ($existingCourseByCode) {
+            $sessionManager->flash('listMessage', ['El curso con este código ya existe en la base de datos.']);
+            $sessionManager->flash('typeMessage', 'error');
+            return redirect()->back();
+        }
+        $existingCourseByName = TCourse::where('name', $request->name)->first();
+    
+        if ($existingCourseByName) {
+            $sessionManager->flash('listMessage', ['El curso con este nombre ya existe en la base de datos.']);
+            $sessionManager->flash('typeMessage', 'error');
+            return redirect()->back();
+        }
+
+        $course = new TCourse();
+        $course->idCourse = uniqid();
+        $course->code = $request->code;
+        $course->name = $request->name;
+        $course->category = $request->category;
+        $course->requisites = 'Ninguno';
+        $course->description = $request->description;
+        $course->modality = $request->modality;
+        $course->save();
+
+        $sessionManager->flash('listMessage', ['Registro realizado correctamente.']);
+        $sessionManager->flash('typeMessage', 'success');
+        return redirect('admin/course');
+    }
+    public function courseDelete($idCourse, SessionManager $sessionManager) {
+        $course = TCourse::find($idCourse);
+    
+        if (!$course) {
+            $sessionManager->flash('listMessage', ['El curso no existe.']);
+            $sessionManager->flash('typeMessage', 'error');
+            return redirect()->back();
+        }
+    
+        // Elimina el curso
+        $course->delete();
+    
+        $sessionManager->flash('listMessage', ['El curso ha sido eliminado correctamente.']);
+        $sessionManager->flash('typeMessage', 'success');
+        return redirect('admin/course');
+    }
+    
+    
 }
 ?>

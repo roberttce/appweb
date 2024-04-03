@@ -169,40 +169,37 @@
                                 <!-- Formulario para editar persona -->
                                 <form id="form-personUpdate" action="{{ url('admin/person/update/'.$value->idPerson) }}" method="POST">
                                     @csrf
-                                    <input type="hidden" id="idPerson" value="{{ $value->idPerson }}">
+                                    <input type="hidden" id="idPerson" name="idPerson" value="{{ $value->idPerson }}">
                                     <div class="form-group">
                                         <label for="firstName">Nombre</label>
-                                        <input type="text" class="form-control" id="firstName" value="{{ $value->firstName }}" required>
+                                        <input type="text" class="form-control" id="firstName" name="firstName" value="{{ $value->firstName }}" required>
                                         <span class="error-message" id="firstName-error"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="surName">Apellido</label>
-                                        <input type="text" class="form-control" id="surName" value="{{ $value->surName }}" required>
+                                        <input type="text" class="form-control" id="surName" name="surName" value="{{ $value->surName }}" required>
                                         <span class="error-message" id="surName-error"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="dni">DNI</label>
-                                        <input type="text" class="form-control" id="dni" maxlength="8" value="{{ $value->dni }}" required>
+                                        <input type="text" class="form-control" id="dni" name="dni" maxlength="8" value="{{ $value->dni }}" required>
                                         <span class="error-message" id="dni-error"></span>
                                     </div>
-                                    <div class="form-group">
-                                        <label for="birthDate">Fecha de Nacimiento</label>
-                                        <input type="text" class="form-control" id="birthDate" value="{{ date('d/m/Y', strtotime($value->birthDate)) }}" required>
-                                        <span class="error-message" id="birthDate-error"></span>
-                                    </div>
+                                     
+                                    
                                     <div class="form-group">
                                         <label for="phone">Teléfono</label>
-                                        <input type="text" class="form-control" id="phone" value="{{ $value->phone }}" required>
+                                        <input type="text" class="form-control" id="phone" name="phone" value="{{ $value->phone }}" required>
                                         <span class="error-message" id="phone-error"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">Correo Electrónico</label>
-                                        <input type="email" class="form-control" id="email" value="{{ $value->email }}" required>
+                                        <input type="email" class="form-control" id="email" name="email" value="{{ $value->email }}" required>
                                         <span class="error-message" id="email-error"></span>
                                     </div>
                                     <div class="form-group">
                                         <label for="role">Rol</label>
-                                        <select class="form-control" id="role" required>
+                                        <select class="form-control" id="role" name="role" required>
                                             <option value="admin" {{ $value->role == 'admin' ? 'selected' : '' }}>Administrador</option>
                                             <option value="teacher" {{ $value->role == 'teacher' ? 'selected' : '' }}>Profesor</option>
                                             <option value="student" {{ $value->role == 'student' ? 'selected' : '' }}>Estudiante</option>
@@ -219,12 +216,14 @@
                         </div>
                     </div>
                 </div>
+                 
             @endforeach
         </tbody>
     </table>
     @include('admin.modal')
 @endsection
 @section('js') 
+
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>

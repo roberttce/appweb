@@ -26,14 +26,12 @@
     <li class="nav-item">
       <a class="nav-link active" data-toggle="tab" href="#student">Estudiantes</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" data-toggle="tab" href="#attendance">Asistencia</a>
-    </li>
   </ul>
   
   <div  class="tab-content">
     <div  class="tab-pane fade show active">
       <div class="table-responsive">
+        {{ $courseName }}-{{ $idCourse }}
           <table id="student" class="table table-striped">
               <thead  class="thead-light "  >
                   <tr>
@@ -51,7 +49,7 @@
                           </div>
                       </td>
                       <td class="text-right">
-                          <button class="btn btn-sm btn-primary mr-1" data-toggle="tooltip" title="Ver notas">
+                          <button class="btn btn-sm btn-primary mr-1" data-toggle="tooltip" onclick="viewNotes('{{ $value->idPerson }}','{{ $idCourse}}');" title="Ver notas">
                               <i class="fas fa-eye"></i> <!-- Icono de ojo -->
                           </button>
                           <button class="btn btn-sm btn-danger" data-toggle="tooltip" title="Suspender">
@@ -76,7 +74,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
-
+<script>
+  function viewNotes(idPerson,idCourse) {
+    var absoluteURL = "{{ url('teacher/course/enrolled/student') }}/" + idCourse+'/'+idPerson;
+    window.location.assign(absoluteURL);
+  }
+</script>
 <!-- Bootstrap JS (incluye tooltips) -->
  <script src="{{asset('viewsresources/teacher/enrelled.js')}}"></script>
 @endsection

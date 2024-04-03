@@ -1,11 +1,14 @@
 <?php
+
 namespace App\Models;
- 
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TEnrolled extends Model {
-    protected $table = 'tenrolled';
-    protected $primaryKey = 'idEnrolled';
+class TCompetence extends Model
+{
+    protected $table = 'tcompetence';
+    protected $primaryKey = 'idCompetence';
     protected $keyType = 'string';
     public $incrementing = false;
     public $timestamps = true;
@@ -13,9 +16,4 @@ class TEnrolled extends Model {
     {
         return $this->belongsTo(TCourse::class, 'idCourse', 'idCourse');
     }
-    public function person()
-    {
-        return $this->belongsTo(TPerson::class, 'idPerson', 'idPerson');
-    }
 }
-?>

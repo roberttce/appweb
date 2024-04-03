@@ -28,7 +28,7 @@ function verUsuario() {
     window.location.href = "viewperson";
 }
 
-function deletePerson(idPeron) {
+function deletePerson(idPerson) {
 	swal(
 	{
 		title : 'Confirmar operación',
@@ -40,7 +40,7 @@ function deletePerson(idPeron) {
 	{
 		if(proceed)
 		{
-			window.location.href ='person/delete/'+idPeron;
+			window.location.href ='person/delete/'+idPerson;
 		}
 	});
 }

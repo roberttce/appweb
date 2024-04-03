@@ -11,7 +11,11 @@ class TCourse extends Model {
     public $timestamps = true;
     public function enrolled()
     {
-        return $this->hasOne(TEnrolled::class, 'idUser', 'idUser');
+        return $this->hasOne(TEnrolled::class, 'idEnrolled', 'idEnrolled');
+    }
+    public function competences()
+    {
+        return $this->hasMany(TCompetence::class, 'idCourse', 'idCourse');
     }
 }
 ?>

@@ -20,8 +20,10 @@ Route::prefix('admin')->middleware(['web', 'check.session'])->group(function () 
     Route::get('/enrolled',function(){return view('admin.enrolled');});
     Route::match(['get','post'],'/getall/insert', [AdminController::class, 'actionInsert']);
     Route::get('/person/delete/{idPerson}', [AdminController::class,'personDelete']);
+    Route::get('/course/delete/{idCourse}', [AdminController::class,'courseDelete']);
     Route::match(['get','post'],'/person/update/{idPerson}', [PersonController::class,'personUpdate']);
     Route::get('/insert', [AdminController::class,'actionInsert']);
+    Route::match(['get','post'],'teacher/course/insert', [AdminController::class, 'courseInsert']);
 });
 
 
@@ -33,6 +35,8 @@ Route::prefix('teacher')->middleware(['web', 'check.session'])->group(function (
     Route::get('/', [TeacherController::class, 'index'])->name('teacher');
     Route::get('/course', [TeacherController::class, 'viewCouse'])->name('teacher.course');
     Route::get('/course/enrolled/{idCourse}', [TeacherController::class, 'viewEnrolled'])->name('teacher.course.enrolled');
+    Route::get('/course/enrolled/student/{idCourse}/{idPerson}', [TeacherController::class, 'viewNote']);
+    Route::match(['get', 'post'],'/course/student/note',[TeacherController::class ,'noteInsert']);
 });
 
 route :: get('home/student',function(){return view("student.student");});

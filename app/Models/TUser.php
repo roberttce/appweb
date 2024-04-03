@@ -22,5 +22,6 @@ class TUser extends Authenticatable
     {
         return $this->hasOne(TPerson::class, 'idUser', 'idUser');
     }
+    
 }
 ?>

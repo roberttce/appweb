@@ -20,7 +20,6 @@ class PersonController extends Controller
                 'firstName' => 'required',
                 'surName' => 'required',
                 'dni' => 'required|numeric',
-                'birthDate' => 'required',
                 'phone' => 'required|numeric',
                 'email' => 'required|email',
                 'role' => 'required',
@@ -75,13 +74,9 @@ class PersonController extends Controller
                     }
                 }
             }
-            $fechaCarbon = Carbon::createFromFormat('d/m/Y', $request->input('birthDate'));
-            $fechaTextoAlmacenar = $fechaCarbon->format('Y-m-d');
-            // Actualizar los datos de la persona
             $tPerson->firstName = $request->firstName;
             $tPerson->surName = $request->surName;
             $tPerson->dni = $request->dni;
-            $tPerson->birthDate =$fechaTextoAlmacenar;
             $tPerson->phone = $request->phone;
             $tPerson->email = $request->email;
             $tPerson->role = $request->role;

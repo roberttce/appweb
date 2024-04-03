@@ -39,7 +39,7 @@
                   </div>
                   <div class="widget-options">
                       <div class="btn-group">
-                          <a class="btn btn-default" data-toggle="modal" data-target="#personInsert">
+                          <a class="btn btn-default" data-toggle="modal" data-target="#modal-courseInsert">
                               <i class="fa fa-plus"></i>
                           </a>
                       </div>
@@ -93,6 +93,157 @@
       @endforeach
   </tbody>
 </table>
+<div class="modal fade" id="modal-courseInsert" tabindex="-1" role="dialog" aria-labelledby="courseModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color: #007bff; color: #fff;">
+                <h5 class="modal-title" id="courseModalLabel">Registro de cursos</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="courseForm" method="POST" action="{{ url('admin/teacher/course/insert') }}" style="padding: 20px;">
+                @csrf
+                <div class="form-group">
+                    <label for="code">Código:</label>
+                    <input type="text" name="code" id="code" class="form-control">
+                    <span id="codeError" class="error-message" style="display: none;"></span>
+                </div>
+            
+                <div class="form-group">
+                    <label for="name">Nombre:</label>
+                    <input type="text" name="name" id="name" class="form-control">
+                    <span id="nameError" class="error-message" style="display: none;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="category">Categoría:</label>
+                    <input type="text" name="category" id="category" class="form-control">
+                    <span id="categoryError" class="error-message" style="display: none;"></span>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción:</label>
+                    <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+                    <span id="descriptionError" class="error-message" style="display: none;"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="modality">Modalidad:</label>
+                    <select name="modality" id="modality" class="form-control">
+                        <option value="Presencial">Presencial</option>
+                        <option value="Online">Online</option>
+                        <!-- Agrega más opciones según sea necesario -->
+                    </select>
+                    <span id="modalityError" class="error-message" style="display: none;"></span>
+                </div>
+            
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" onclick="courseInsert();" >Guardar Curso</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function courseInsert() {
+        let formIsValid = true;
+
+        if (formIsValid) {
+            swal({
+                title: 'Confirmar operación',
+                text: '¿Realmente desea proceder?',
+                icon: 'warning',
+                buttons: ['No, cancelar.', 'Sí, proceder.']
+            }).then((proceed) => {
+                if (proceed) {
+                    const form = document.getElementById('courseForm'); // Corregir aquí
+                    form.submit();
+                }
+            });
+        }
+    }
+</script>
+<script>
+    function validateInput(input) {
+        const errorSpan = input.nextElementSibling;
+        const inputValue = input.value.trim();
+        const inputName = input.getAttribute('name');
+
+        // Validación específica según el nombre del campo
+        switch (inputName) {
+            case 'code':
+                errorSpan.textContent = inputValue === '' ? 'Por favor, introduce un código válido.' : '';
+                break;
+            case 'name':
+                errorSpan.textContent = inputValue === '' ? 'Por favor, introduce un nombre válido.' : '';
+                break;
+            case 'category':
+                errorSpan.textContent = inputValue === '' ? 'Por favor, introduce una categoría válida.' : '';
+                break;
+            case 'description':
+                errorSpan.textContent = inputValue === '' ? 'Por favor, introduce una descripción válida.' : '';
+                break;
+            case 'modality':
+                errorSpan.textContent = inputValue === '' ? 'Por favor, selecciona una modalidad válida.' : '';
+                break;
+        }
+
+        // Mostrar u ocultar el mensaje de error según el valor del campo
+        input.classList.toggle('is-invalid', errorSpan.textContent !== '');
+        errorSpan.style.display = errorSpan.textContent !== '' ? 'block' : 'none';
+    }
+
+    const inputs = document.querySelectorAll('#courseForm input, #courseForm textarea, #courseForm select');
+
+    inputs.forEach(input => {
+        input.addEventListener('input', function() {
+            validateInput(this);
+        });
+    });
+</script>
+
+<style>
+    .is-invalid {
+        border-color: #dc3545 !important;
+    }
+
+    .error-message {
+        color: #dc3545;
+        display: none;
+    }
+</style>
+
+<style>
+    .modal-header {
+        padding: 1rem;
+        border-bottom: none;
+    }
+
+    .modal-footer {
+        padding: 1rem;
+        border-top: none;
+    }
+
+    .modal-content {
+        border-radius: 0.5rem;
+    }
+
+    .modal-content form {
+        margin-bottom: 0;
+    }
+
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    label {
+        font-weight: bold;
+    }
+</style>
+
+
+
 @endsection
 @section('js')
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
